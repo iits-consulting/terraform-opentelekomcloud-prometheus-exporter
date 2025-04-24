@@ -5,9 +5,21 @@ This module deploys our [otc-prometheus-exporter](https://github.com/iits-consul
 Example:
 ```HCL
 module "otc_prometheus_exporter" {
-  source      = "registry.terraform.io/iits-consulting/project-factory/opentelekomcloud//modules/otc-prometheus-exporter"
-  name_prefix = "${var.context}-${var.stage}"
-  domain_name = var.otc_domain_name
+  source  = "iits-consulting/prometheus-exporter/opentelekomcloud"
+  version = "SET_ME"
+  
+  name_prefix  = "myCluster-PROD"
+  domain_name = "EU-DE-XXXXX"
+  
+  chart_values = [
+    yamlencode({
+      deployment = {
+        env = {
+          NAMESPACES = "OBS,RDS"
+        }
+      }
+    })
+  ]
 }
 ```
 
